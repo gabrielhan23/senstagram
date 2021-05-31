@@ -113,7 +113,6 @@ window.addEventListener('load', (e) => {
                 divs.push(commentDiv)
                 subInThing.push(preprocess(textComment))
             }
-            console.log("lol")
             post("https://sendstuff.1234567890hihi.repl.co/3000", {data: subInThing, length: subInThing.length}, commentInstagramFunction)
         })
     }
