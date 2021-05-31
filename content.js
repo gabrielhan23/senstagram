@@ -78,7 +78,6 @@ function commentInstagramFunction(data){
 }
 
 window.addEventListener('load', (e) => {
-    youtubeComments()
 
     var myDivs = document.getElementsByClassName("C4VMK")
     var inThing = []
@@ -95,6 +94,14 @@ window.addEventListener('load', (e) => {
     for(let i=0; i<mySubcomments.length;i++){
         let subComment = mySubcomments.item(i) 
         let reply = subComment.children[0]
+        /*console.log(subComment)
+        $('body').on('DOMSubtreeModified', 'myDiv', function(){
+            console.log('changed');
+        });
+        subComment.addEventListener("change", e=>{
+            console.log("there was a change")
+            console.log(e)
+        });*/
         reply.addEventListener('click', e=>{
             //console.log(subComment)
             let divs= []
@@ -106,6 +113,7 @@ window.addEventListener('load', (e) => {
                 divs.push(commentDiv)
                 subInThing.push(preprocess(textComment))
             }
+            console.log("lol")
             post("https://sendstuff.1234567890hihi.repl.co/3000", {data: subInThing, length: subInThing.length}, commentInstagramFunction)
         })
     }
