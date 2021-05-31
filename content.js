@@ -11,6 +11,7 @@ chrome.runtime.onMessage.addListener(
                 "from the extension");
 
         if (request.greeting == "hello"){
+            window.alert("This is a test")
             youtubeComments()
             sendResponse({farewell: "goodbye"});
         }
