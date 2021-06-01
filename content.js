@@ -90,22 +90,25 @@ window.addEventListener('load', (e) => {
 
     //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: inThing, length: inThing.length}, instagramFunction)
 
+        
+
     var mySubcomments = document.getElementsByClassName("TCSYW")
     for(let i=0; i<mySubcomments.length;i++){
-        let subComment = mySubcomments.item(i) 
+        let subComment = mySubcomments.item(i)
         let reply = subComment.children[0]
-        /*console.log(subComment)
+
+        /*
+        console.log(subComment)
         $('body').on('DOMSubtreeModified', 'myDiv', function(){
             console.log('changed');
         });
-        subComment.addEventListener("change", e=>{
-            console.log("there was a change")
-            console.log(e)
-        });*/
-        reply.addEventListener('click', e=>{
-            //console.log(subComment)
-            let divs= []
+        */
+
+        subComment.addEventListener('DOMSubtreeModified', e=>{
+            let divs = []
             let subInThing = []
+
+            //console.log(subComment)
             for(let y=1; y<subComment.children.length;y++){
                 let indSubcomment = subComment.children[y]
                 let commentDiv = indSubcomment.getElementsByClassName("C4VMK")[0]
@@ -113,7 +116,22 @@ window.addEventListener('load', (e) => {
                 divs.push(commentDiv)
                 subInThing.push(preprocess(textComment))
             }
-            post("https://sendstuff.1234567890hihi.repl.co/3000", {data: subInThing, length: subInThing.length}, commentInstagramFunction)
+            console.log(subInThing)
+
+            function commentInstagramFunction(data){
+                console.log("bruh")
+                myResponses = data.response
+                for(let i=0; i<subInThing.length; i++){
+                    let myItem = divs[i]
+                    //object properties: tag_name, tag_id, confidence
+                    if(myResponses[i].tag_name == 'Positive'){myItem.style.backgroundColor = '#008000'} //green
+                    else if(myResponses[i].tag_name == 'Negative'){myItem.style.backgroundColor = '#FF0000'} //red
+                    else if(myResponses[i].tag_name == 'Neutral'){myItem.style.backgroundColor = '#808080'} //gray
+                    else{}
+                }
+            }
+
+            //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: subInThing, length: subInThing.length}, commentInstagramFunction)
         })
     }
 
