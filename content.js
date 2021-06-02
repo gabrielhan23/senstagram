@@ -10,8 +10,13 @@ chrome.runtime.onMessage.addListener(
                 "from a content script:" + sender.tab.url :
                 "from the extension");
 
-        if (request.greeting == "hello"){
+        if (request.greeting == "youtube"){
             youtubeComments()
+            sendResponse({farewell: "goodbye"});
+        }
+        if (request.greeting == "instagram"){
+            //tim do stuff here
+            console.log("tims insta thingy is working")
             sendResponse({farewell: "goodbye"});
         }
 });

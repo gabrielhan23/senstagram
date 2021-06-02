@@ -1,8 +1,11 @@
-document.getElementById("youtubejunk").onclick = function() {
-    console.log("HI THERE")
+document.getElementById("youtubejunk").onclick = contactContent("youtube")
+document.getElementById("instagramjunk").onclick = contactContent("instagram")
+
+function contactContent(message) {
+    console.log("contacting content.js")
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-          chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
-              console.log(response);
-          });
-      });
-  }
+        chrome.tabs.sendMessage(tabs[0].id, {greeting: message}, function(response) {
+            console.log(response);
+        });
+    });
+}
