@@ -76,20 +76,22 @@ window.addEventListener('load', (e) => {
         inThing.push(preprocess(myItem.textContent))
     }
 
+    console.log(inThing)
     function instagramFunction(data){
         myResponses = data.response;
+        console.log(myResponses)
         for(let i=0; i< inThing.length; i++){
             processedQueries.push(inThing[i])
             processedResponses.push(myResponses[i])
         }
-        for(let i=0; i<data.data.length; i++){
+        for(let i=0; i<inThing.length; i++){
             let myItem = myDivs[i]
             let myResponse = myResponses[i]
             //object properties: tag_name, tag_id, confidence
             color(myItem, myResponse)
         }
     }
-    //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: inThing, length: inThing.length}, instagramFunction)
+    post("https://sendstuff.1234567890hihi.repl.co/3000", inThing, instagramFunction)
 
     //all possible subcomments
     var mySubcomments = document.getElementsByClassName("TCSYW")
@@ -145,7 +147,7 @@ window.addEventListener('load', (e) => {
                 }
             }
 
-            //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: processedSub, length: processedSub.length}, commentInstagramFunction)
+            post("https://sendstuff.1234567890hihi.repl.co/3000", processedSub, commentInstagramFunction)
         })
     }
     
