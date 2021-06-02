@@ -89,7 +89,7 @@ window.addEventListener('load', (e) => {
             color(myItem, myResponse)
         }
     }
-    //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: inThing, length: inThing.length}, instagramFunction)
+    //post("https://sendstuff.1234567890hihi.repl.co/3000", inThing, instagramFunction)
 
     //all possible subcomments
     var mySubcomments = document.getElementsByClassName("TCSYW")
@@ -145,7 +145,7 @@ window.addEventListener('load', (e) => {
                 }
             }
 
-            //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: processedSub, length: processedSub.length}, commentInstagramFunction)
+            //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: processedSub}, commentInstagramFunction)
         })
     }
     
