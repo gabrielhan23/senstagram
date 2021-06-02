@@ -11,7 +11,6 @@ chrome.runtime.onMessage.addListener(
                 "from the extension");
 
         if (request.greeting == "hello"){
-            window.alert("This is a test")
             youtubeComments()
             sendResponse({farewell: "goodbye"});
         }
@@ -40,7 +39,6 @@ function youtubeColor(data){
 }
 
 function post(url,info,func){
-    console.log("ajax initiating")
     $(function(){
         $.ajax({
             type: "POST",
@@ -53,31 +51,16 @@ function post(url,info,func){
     });
 }
 
-function instagramFunction(data){
-    myResponses = data.response;
-    for(let i=0; i<inThing.length; i++){
-        let myItem = myDivs[i]
-        //object properties: tag_name, tag_id, confidence
-        if(myResponses[i].tag_name == 'Positive'){myItem.style.backgroundColor = '#008000'} //green
-        else if(myResponses[i].tag_name == 'Negative'){myItem.style.backgroundColor = '#FF0000'} //red
-        else if(myResponses[i].tag_name == 'Neutral'){myItem.style.backgroundColor = '#808080'} //gray
-        else{}
-    }
-}
-
-function commentInstagramFunction(data){
-    myResponses = data.response
-    for(let i=0; i<subInThing.length; i++){
-        let myItem = divs[i]
-        //object properties: tag_name, tag_id, confidence
-        if(myResponses[i].tag_name == 'Positive'){myItem.style.backgroundColor = '#008000'} //green
-        else if(myResponses[i].tag_name == 'Negative'){myItem.style.backgroundColor = '#FF0000'} //red
-        else if(myResponses[i].tag_name == 'Neutral'){myItem.style.backgroundColor = '#808080'} //gray
-        else{}
-    }
+function color(myItem, myResponse){
+    if(myResponse.tag_name == 'Positive'){myItem.style.backgroundColor = '#008000'} //green
+    else if(myResponse.tag_name == 'Negative'){myItem.style.backgroundColor = '#FF0000'} //red
+    else if(myResponse.tag_name == 'Neutral'){myItem.style.backgroundColor = '#808080'} //gray
+    else{}
 }
 
 window.addEventListener('load', (e) => {
+    var processedQueries = []
+    var processedResponses = []
 
     var myDivs = document.getElementsByClassName("C4VMK")
     var inThing = []
@@ -88,51 +71,77 @@ window.addEventListener('load', (e) => {
         inThing.push(preprocess(myItem.textContent))
     }
 
+    function instagramFunction(data){
+        myResponses = data.response;
+        for(let i=0; i< inThing.length; i++){
+            processedQueries.push(inThing[i])
+            processedResponses.push(myResponses[i])
+        }
+        for(let i=0; i<data.data.length; i++){
+            let myItem = myDivs[i]
+            let myResponse = myResponses[i]
+            //object properties: tag_name, tag_id, confidence
+            color(myItem, myResponse)
+        }
+    }
     //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: inThing, length: inThing.length}, instagramFunction)
 
-        
-
+    //all possible subcomments
     var mySubcomments = document.getElementsByClassName("TCSYW")
     for(let i=0; i<mySubcomments.length;i++){
+        //individual subcomments HTML object
         let subComment = mySubcomments.item(i)
-        let reply = subComment.children[0]
-
-        /*
-        console.log(subComment)
-        $('body').on('DOMSubtreeModified', 'myDiv', function(){
-            console.log('changed');
-        });
-        */
-
         subComment.addEventListener('DOMSubtreeModified', e=>{
+            //individual subcomment HTML object
             let divs = []
-            let subInThing = []
 
-            //console.log(subComment)
-            for(let y=1; y<subComment.children.length;y++){
+            //individual subcomment textContent
+            let subInThing = []
+            for(let y=subComment.children.length-1; y<subComment.children.length;y++){
                 let indSubcomment = subComment.children[y]
+                if(indSubcomment.className =="_61Di1"){break}
                 let commentDiv = indSubcomment.getElementsByClassName("C4VMK")[0]
                 let textComment = commentDiv.children[1].textContent
                 divs.push(commentDiv)
                 subInThing.push(preprocess(textComment))
             }
-            console.log(subInThing)
 
-            function commentInstagramFunction(data){
-                console.log("bruh")
-                myResponses = data.response
-                for(let i=0; i<subInThing.length; i++){
+            //check if processed already
+            let processedDivs = []
+            let processedSub = []
+
+            //error here
+            for(let i=0; i<subInThing.length; i++){
+                if(!processedQueries.includes(subInThing[i])){
+                    processedDivs.push(divs[i])
+                    processedSub.push(subInThing[i])
+                }else{
+                    //load processed here
+                    let processedIndex = processedQueries.indexOf(subInThing[i])
                     let myItem = divs[i]
+                    let myResponse = processedResponses[processedIndex]
                     //object properties: tag_name, tag_id, confidence
-                    if(myResponses[i].tag_name == 'Positive'){myItem.style.backgroundColor = '#008000'} //green
-                    else if(myResponses[i].tag_name == 'Negative'){myItem.style.backgroundColor = '#FF0000'} //red
-                    else if(myResponses[i].tag_name == 'Neutral'){myItem.style.backgroundColor = '#808080'} //gray
-                    else{}
+                    color(myItem, myResponse)
                 }
             }
 
-            //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: subInThing, length: subInThing.length}, commentInstagramFunction)
+            function commentInstagramFunction(data){
+                myResponses = data.response
+                for(let i=0; i< processedSub.length; i++){
+                    processedQueries.push(processedSub[i])
+                    processedResponses.push(myResponses[i])
+                }
+
+                for(let i=0; i<subInThing.length; i++){
+                    let myItem = processedDivs[i]
+                    let myResponse = myResponses[i]
+                    //object properties: tag_name, tag_id, confidence
+                    color(myItem, myResponse)
+                }
+            }
+
+            //post("https://sendstuff.1234567890hihi.repl.co/3000", {data: processedSub, length: processedSub.length}, commentInstagramFunction)
         })
     }
-
+    
 });
