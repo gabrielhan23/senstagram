@@ -13,6 +13,13 @@ let sentTracker = {
     "negativeComments": 0.0
 }
 
+function checkSite(){
+    console.log("contacting background")
+    chrome.runtime.sendMessage({request: "checksite"}, function(response){
+        console.log(response)
+    })
+}
+
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
