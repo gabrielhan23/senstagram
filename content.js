@@ -1,8 +1,18 @@
-function preprocess(text){
-    //should take care of things like @ signs, mentions, etc.
-    
-    return text;
+let sentTracker = {
+    "on": false,
+    "parentMode": false,
+
+    "positiveColor": "green",
+    "neutralColor": "gray",
+    "negativeColor": "red",
+    "positiveThreshold": 0.33,
+    "negativeThreshold": 0.33,
+
+    "positiveComments": 0.0,
+    "neutralComments": 0.0,
+    "negativeComments": 0.0
 }
+
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -54,6 +64,12 @@ function post(url,info,func){
             success: func
         })
     });
+}
+
+function preprocess(text){
+    //should take care of things like @ signs, mentions, etc.
+    
+    return text;
 }
 
 function color(myItem, myResponse){
