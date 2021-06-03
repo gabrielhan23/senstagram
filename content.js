@@ -76,7 +76,6 @@ window.addEventListener('load', (e) => {
         inThing.push(preprocess(myItem.textContent))
     }
 
-    console.log(inThing)
     function instagramFunction(data){
         myResponses = data.response;
         console.log(myResponses)
