@@ -1,0 +1,66 @@
+
+/* ----------------- Div Classes ----------------- */
+
+.onOff{}
+
+.parent{}
+
+.positiveColor{}
+
+.neutralColor{}
+
+.negativeColor{}
+
+.positiveThreshold{}
+
+.negativeThreshold{}
+
+.positiveComments{}
+
+.neutralComments{}
+
+.negativeComments{}
+
+/* ----------------- Labels ----------------- */
+
+.onOff h{}
+
+.parent h{}
+
+.positiveColor h{}
+
+.neutralColor h{}
+
+.negativeColor h{}
+
+.positiveThreshold h{}
+
+.negativeThreshold h{}
+
+.positiveComments h{}
+
+.neutralComments h{}
+
+.negativeComments h{}
+
+/* ----------------- Values/Toggles ----------------- */
+
+.onOff input{}
+
+.parent input{}
+
+.positiveColor input{}
+
+.neutralColor input{}
+
+.negativeColor input{}
+
+.positiveThreshold input{}
+
+.negativeThreshold input{}
+
+.positiveComments input{}
+
+.neutralComments input{}
+
+.negativeComments input{}

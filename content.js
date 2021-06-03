@@ -1,45 +1,39 @@
-function preprocess(text){
-    //should take care of things like @ signs, mentions, etc.
-    
-    return text;
+let sentTracker = {
+    "onOff": false,
+    "parent": false,
+
+    "positiveColor": "green",
+    "neutralColor": "gray",
+    "negativeColor": "red",
+    "positiveThreshold": 0.33,
+    "negativeThreshold": 0.33,
+
+    "positiveComments": 0.0,
+    "neutralComments": 0.0,
+    "negativeComments": 0.0
 }
 
-function checkSite(){
-    console.log("contacting background")
-    chrome.runtime.sendMessage({request: "checksite"}, function(response){
-        console.log(response)
-    })
-}
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        console.log(sender.tab ?
-                "from a content script:" + sender.tab.url :
-                "from the extension");
-
-        if (request.greeting == "youtube"){
-            youtubeComments()
-            sendResponse({farewell: "goodbye"});
-        }
-        if (request.greeting == "instagram"){
-            //tim do stuff here
-            console.log("tims insta thingy is working")
-            sendResponse({farewell: "goodbye"});
+        if (request.type == "getInitialParameters"){
+            sendResponse({farewell: sentTracker})
+        }else if (request.type == "change"){
+            sentTracker[variable] = value
+            console.log(sentTracker)
         }
 });
 
 function youtubeComments(){
     $("head").append('<style type="text/css">#stupid.ytd-comment-renderer{--yt-endpoint-color: var(--yt-spec-call-to-action);--yt-endpoint-hover-color: var(--yt-spec-call-to-action);--yt-endpoint-visited-color: var(--yt-spec-call-to-action);color: var(--yt-spec-text-primary);font-size: var(--ytd-user-comment_-_font-size);font-weight: var(--ytd-user-comment_-_font-weight);line-height: var(--ytd-user-comment_-_line-height);letter-spacing: var(--ytd-user-comment_-_letter-spacing);line-height: 2rem;}</style>');
     comment = document.querySelector("yt-formatted-string#content-text")
-    console.log(comment)
     if(comment != null){
         commentText = comment.innerText
-        console.log(commentText)
         post("https://sendstuff.1234567890hihi.repl.co/3000",[commentText],youtubeColor)
     }
 }
 
 function youtubeColor(data){
-    console.log(data.response[0].tag_name)
     comment = document.querySelector("yt-formatted-string#content-text")
     if(data.response[0].tag_name == 'Positive'){comment.style.backgroundColor = '#008000'} //green
     else if(data.response[0].tag_name == 'Negative'){comment.style.backgroundColor = '#FF0000'} //red
@@ -62,6 +56,12 @@ function post(url,info,func){
     });
 }
 
+function preprocess(text){
+    //should take care of things like @ signs, mentions, etc.
+    
+    return text;
+}
+
 function color(myItem, myResponse){
     if(myResponse.tag_name == 'Positive'){myItem.style.backgroundColor = '#008000'} //green
     else if(myResponse.tag_name == 'Negative'){myItem.style.backgroundColor = '#FF0000'} //red
@@ -70,7 +70,6 @@ function color(myItem, myResponse){
 }
 
 window.addEventListener('load', (e) => {
-    checkSite()
     var processedQueries = []
     var processedResponses = []
 
@@ -83,7 +82,6 @@ window.addEventListener('load', (e) => {
         inThing.push(preprocess(myItem.textContent))
     }
 
-    console.log(inThing)
     function instagramFunction(data){
         myResponses = data.response;
         console.log(myResponses)
