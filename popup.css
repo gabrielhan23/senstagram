@@ -206,12 +206,6 @@ input {
     width: 100%;
 }
 
-.break2 {
-    position: relative;
-    height: 10px;
-    width: 100%;
-}
-
 .basicSettings{
     position: absolute;
     font-family: Limelight;

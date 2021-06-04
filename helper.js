@@ -10,6 +10,30 @@ buttonThing.onclick = function(){
     });
 }*/
 
+function callback(message){
+    console.log("callback is working "+message)
+}
+
+getData("positiveColor", callback)
+
+function getData(name, callback){
+    console.log("starting function getData")
+    chrome.runtime.sendMessage({ action: "sentimentGrabDataPopupToBackground", dataName: name, callback: callback })
+}
+
+chrome.runtime.onMessage.addListener(
+    function(message){
+        if(message.action == "sentimentGrabDataBackgroundToPopup"){
+            console.log(message)
+            callback(message.data)
+        } else if (message.action == "timeGrabDataBackgroundToPopup"){
+
+        } else {
+            console.log("recieved weird action from background/content js")
+        }
+    }
+)
+
 function query(message, func){
     chrome.runtime.sendMessage(message, func);
 }
