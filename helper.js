@@ -1,6 +1,5 @@
 /*
 #Reference code
-
 let buttonThing = document.getElementById("instagramjunk")
 buttonThing.onclick = function(){
     let message = "instagram"
@@ -12,9 +11,7 @@ buttonThing.onclick = function(){
 }*/
 
 function query(message, func){
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, message, func);
-    });
+    chrome.runtime.sendMessage(message, func);
 }
 
 window.addEventListener('load', (e) => {
