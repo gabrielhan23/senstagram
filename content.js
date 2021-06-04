@@ -1,17 +1,4 @@
-let sentTracker = {
-    "onOff": false,
-    "parent": false,
 
-    "positiveColor": "green",
-    "neutralColor": "gray",
-    "negativeColor": "red",
-    "positiveThreshold": 0.33,
-    "negativeThreshold": 0.33,
-
-    "positiveComments": 0.0,
-    "neutralComments": 0.0,
-    "negativeComments": 0.0
-}
 
 function checkSite(){
     console.log("contacting background")
@@ -20,16 +7,6 @@ function checkSite(){
     })
 }
 
-
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        if (request.type == "getInitialParameters"){
-            sendResponse({farewell: sentTracker})
-        }else if (request.type == "change"){
-            sentTracker[variable] = value
-            console.log(sentTracker)
-        }
-});
 
 function youtubeComments(){
     $("head").append('<style type="text/css">#stupid.ytd-comment-renderer{--yt-endpoint-color: var(--yt-spec-call-to-action);--yt-endpoint-hover-color: var(--yt-spec-call-to-action);--yt-endpoint-visited-color: var(--yt-spec-call-to-action);color: var(--yt-spec-text-primary);font-size: var(--ytd-user-comment_-_font-size);font-weight: var(--ytd-user-comment_-_font-weight);line-height: var(--ytd-user-comment_-_line-height);letter-spacing: var(--ytd-user-comment_-_letter-spacing);line-height: 2rem;}</style>');
