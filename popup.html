@@ -4,22 +4,43 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="popup.css">
         <title>Document</title>
     </head>
     <body>
-        <div class="onOff"><h></h><input></input></div>
-        <div class="parent"><h></h><input></input></div>
+        <div class="navbar">
+            <div class="button1"><h class="sentimentTracker">Sentiment Tracker</h></div>
+            <div class="button2"><h class="timeTracker">Time Tracker</h></div>
+        </div>
+        <div class="popup">
+            <img src="popup1.svg">
+            <img class="popup2" src="popup2.svg">
 
-        <div class="positiveColor"><h></h><input></input></div>
-        <div class="neutralColor"><h></h><input></input></div>
-        <div class="negativeColor"><h></h><input></input></div>
-        <div class="positiveThreshold"><h></h><input></input></div>
-        <div class="negativeThreshold"><h></h><input></input></div>
+            <div class="basicsBreak">
+                <h class="basicSettings">Basic Settings</h>
+                <div class="type1"></div>
+                <div class="type2"></div>
+            </div>
+            <div class="onOff regularDiv"><h>On</h><input></input></div>
+            <div class="parent regularDiv"><h>Parent Mode</h><input></input></div>
+            <div class="break1"></div>
 
-        <div class="positiveComments"><h></h><input></input></div>
-        <div class="neutralComments"><h></h><input></input></div>
-        <div class="negativeComments"><h></h><input></input></div>
 
+            <div class="positiveColor regularDiv"><h>Positive Color</h><input></input></div>
+            <div class="neutralColor regularDiv"><h>Neutral Color</h><input></input></div>
+            <div class="negativeColor regularDiv"><h>Negative Color</h><input></input></div>
+            <div class="positiveThreshold regularDiv"><h>Positive Threshold</h><input></input></div>
+            <div class="negativeThreshold regularDiv"><h>Negative Threshold</h><input></input></div>
+
+            <div class="historyBreak">
+                <h class="commentHistory">Comment History</h>
+                <div class="type1"></div>
+                <div class="type2"></div>
+            </div>
+            <div class="positiveComments regularDiv"><h>Positive Comments</h><input></input></div>
+            <div class="neutralComments regularDiv"><h>Neutral Comments</h><input></input></div>
+            <div class="negativeComments regularDiv"><h>Negative Comments</h><input></input></div>
+        </div>
     </body>
     <script src="helper.js"></script>
 
