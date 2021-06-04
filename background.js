@@ -1,18 +1,3 @@
-/*let sentTracker = {
-    "onOff": false,
-    "parent": false,
-
-    "positiveColor": "green",
-    "neutralColor": "gray",
-    "negativeColor": "red",
-    "positiveThreshold": 0.33,
-    "negativeThreshold": 0.33,
-
-    "positiveComments": 0.0,
-    "neutralComments": 0.0,
-    "negativeComments": 0.0
-}*/
-
 function saveData(data){
     chrome.storage.local.set(data, function(){
         console.log("saved")
@@ -20,6 +5,7 @@ function saveData(data){
 }
 
 chrome.runtime.onInstalled.addListener(function(){
+    chrome.browserAction.setIcon({ path: "senstagramLogo.jpg" });
     saveData({
         "onOff": false,
         "parent": false,
@@ -68,7 +54,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
             console.log("done")
         })
     } else {
-        console.log("got werid action request from helper or content js")
+        console.log("got weird action request from helper or content js")
     }
 })
 /*
