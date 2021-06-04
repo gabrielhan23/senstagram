@@ -1,5 +1,13 @@
 
+.popup {}
+
 /* ----------------- Div Classes ----------------- */
+.regularDiv{
+    height: 30px;
+    width: 15%;
+    opacity: 0.5;
+    background-color: white;
+}
 
 .onOff{}
 
