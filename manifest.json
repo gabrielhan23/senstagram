@@ -14,7 +14,7 @@
     },
     "browser_action": {
         "default_icon": {  
-            "48": "senstagram48,jpg",
+            "48": "senstagram48.jpg",
             "128": "senstagram128.jpg"        
           },
         "default_popup": "popup.html",
