@@ -24,23 +24,18 @@ chrome.runtime.onInstalled.addListener(function(){
 })
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
-    console.log("recieved action item from js file: "+message.action)
     if(message.action == "sentimentGrabDataPopupToBackground"){
-        dataName = message.dataName
-        console.log("accessing data with name "+dataName)
-        console.log("sender is "+sender)
-        chrome.storage.local.get(dataName, function(data){
-            console.log("got data")
-            console.log(data)
+        dataNames = message.dataNames
+        chrome.storage.local.get(dataNames, function(data){
             chrome.runtime.sendMessage({
                 action: "sentimentGrabDataBackgroundToPopup",
-                data: data[dataName],
+                dataNames: dataNames,
+                data: data,
                 callback: message.callback
             }) 
         })
     } else if (message.action == "timeGrabWebsiteContentToBackground"){
         chrome.storage.local.get("active", function(items){
-            console.log("getting..."+items.active)
             data = items.active
             if(data){
                 console.log(data)
@@ -51,7 +46,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
                     saveData({"active": url})
                 })
             }
-            console.log("done")
         })
     } else {
         console.log("got weird action request from helper or content js")
