@@ -1,11 +1,17 @@
 function saveData(data){
     chrome.storage.local.set(data, function(){
         console.log("saved")
+
+        //let bruv = []
+        //for(const thing in data){
+        //    bruv.push(thing)
+        //}
+        //chrome.storage.local.get(bruv, function(result){console.log(result)})
     })
 }
 
 chrome.runtime.onInstalled.addListener(function(){
-    chrome.browserAction.setIcon({ path: "senstagramLogo.jpg" });
+    chrome.browserAction.setIcon({ path: "senstagram128.jpg" });
     saveData({
         "onOff": false,
         "parent": false,
@@ -47,6 +53,11 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
                 })
             }
         })
+    } else if (message.action == "setData"){
+        let name = message.dataName
+        let value = message.value
+        let data = {name : value}
+        saveData(data)
     } else {
         console.log("got weird action request from helper or content js")
     }
