@@ -5,6 +5,7 @@ let elements = ["onOff","parent","positiveColor","neutralColor","negativeColor",
 let types = ["bool", "bool", "color", "color", "color", "probability", "probability", "integer", "integer", "integer"]
 
 function getState(name, callback){
+    console.log("asdf")
     chrome.runtime.sendMessage({ action: "sentimentGrabDataPopupToBackground", dataNames: name, callback: callback })
 }
 
@@ -45,6 +46,7 @@ function callback(message, dataNames){
             //if is, update state and send to background which sends to content
             if(legality){
                 state[className] = target
+                console.log(state)
                 chrome.runtime.sendMessage({ action: "setData", dataName: className, value: target, callback: null })
             }
             //if not, get state and revert value back to the state

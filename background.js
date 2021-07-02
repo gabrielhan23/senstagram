@@ -1,7 +1,10 @@
 function saveData(data){
     chrome.storage.local.set(data, function(){
         console.log("saved")
-
+        
+        chrome.storage.local.get(["onOff"], function(result){
+            console.log(result)
+        })
         //let bruv = []
         //for(const thing in data){
         //    bruv.push(thing)
@@ -10,24 +13,22 @@ function saveData(data){
     })
 }
 
-chrome.runtime.onInstalled.addListener(function(){
-    chrome.browserAction.setIcon({ path: "senstagram128.jpg" });
-    saveData({
-        "onOff": false,
-        "parent": false,
-    
-        "positiveColor": "green",
-        "neutralColor": "gray",
-        "negativeColor": "red",
-        "positiveThreshold": 0.33,
-        "negativeThreshold": 0.33,
-    
-        "positiveComments": 0.0,
-        "neutralComments": 0.0,
-        "negativeComments": 0.0
-    })
-    saveData({"active": ""})
+chrome.browserAction.setIcon({ path: "senstagram128.jpg" });
+saveData({
+    "onOff": false,
+    "parent": false,
+
+    "positiveColor": "#00FF00", //green
+    "neutralColor": "#808080", //gray
+    "negativeColor": "#FF0000", //red
+    "positiveThreshold": 0.33,
+    "negativeThreshold": 0.33,
+
+    "positiveComments": 0.0,
+    "neutralComments": 0.0,
+    "negativeComments": 0.0
 })
+saveData({"active": ""})
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
     if(message.action == "sentimentGrabDataPopupToBackground"){
@@ -56,8 +57,10 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
     } else if (message.action == "setData"){
         let name = message.dataName
         let value = message.value
-        let data = {name : value}
+        let data = {}
+        data[name] = value
         saveData(data)
+
     } else {
         console.log("got weird action request from helper or content js")
     }
