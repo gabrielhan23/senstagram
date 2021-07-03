@@ -15,12 +15,12 @@ function saveData(data){
 
 chrome.browserAction.setIcon({ path: "senstagram128.jpg" });
 saveData({
-    "onOff": false,
+    "onOff": true,
     "parent": false,
 
-    "positiveColor": "#00FF00", //green
-    "neutralColor": "#808080", //gray
-    "negativeColor": "#FF0000", //red
+    "positiveColor": "#00ff00", //green
+    "neutralColor": "#ffffff", //gray
+    "negativeColor": "#ff0000", //red
     "positiveThreshold": 0.33,
     "negativeThreshold": 0.33,
 
